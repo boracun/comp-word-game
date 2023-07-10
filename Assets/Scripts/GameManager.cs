@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void CreateEmptyCell(Vector2 position, int x, int y)
     {
-        var emptyCellObject = Instantiate(emptyCellPrefab, position, Quaternion.identity);
+        var emptyCellObject = Instantiate(emptyCellPrefab, (Vector3) position + transform.position, Quaternion.identity);
         emptyCellObject.transform.parent = transform;
         emptyCellObject.name = "Cell (" + x + ", " + y + ")";
     }
