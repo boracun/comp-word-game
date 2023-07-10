@@ -10,7 +10,7 @@ public class Letter : MonoBehaviour
     {
         if (!isHeld) return;
         var cameraPosition = GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(cameraPosition.x, cameraPosition.y, 0f);
+        transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -1f);
     }
 
     private void OnMouseDown()
