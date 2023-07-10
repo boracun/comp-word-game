@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static Camera mainCamera;
+    
     [SerializeField] private GameObject emptyCellPrefab;
     [SerializeField] private float spaceBetween;
     public int gridSide;
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        mainCamera = Camera.main;
         InitializeGrid();
     }
 

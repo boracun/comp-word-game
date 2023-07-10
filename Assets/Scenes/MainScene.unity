@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &394629806
+--- !u!1001 &494828529
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -135,9 +135,17 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 235426442913790034, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 544364970678856385, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
       propertyPath: m_Name
       value: Letter
+      objectReference: {fileID: 0}
+    - target: {fileID: 544364970678856385, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4706708814003724137, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
       propertyPath: m_RootOrder
@@ -145,11 +153,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4706708814003724137, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.3451106
       objectReference: {fileID: 0}
     - target: {fileID: 4706708814003724137, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.7010374
       objectReference: {fileID: 0}
     - target: {fileID: 4706708814003724137, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
       propertyPath: m_LocalPosition.z
@@ -186,7 +194,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 235426442913790034, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 6c5cf6139c5f94c3082f4c9fd40ad568, type: 3}
 --- !u!1 &519420028
 GameObject:
