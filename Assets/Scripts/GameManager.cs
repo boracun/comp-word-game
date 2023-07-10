@@ -6,21 +6,28 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject emptyCellPrefab;
     [SerializeField] private float spaceBetween;
-    public int gridWidth;
-    public int gridHeight;
+    public int gridSide;
     private float cellSide;   // TODO: Make this change according to the grid size
 
     private void Start()
     {
+        InitializeGrid();
+    }
+
+    /**
+     * The grid is always a square in the current version.
+     */
+    private void InitializeGrid()
+    {
         cellSide = emptyCellPrefab.GameObject().GetComponent<BoxCollider2D>().size.x;
-        Vector2 firstCellPos = new Vector2(-(gridHeight / 2) * (spaceBetween + cellSide),
-            -(gridHeight / 2) * (spaceBetween + cellSide));
+        float firstCellPosX = -(gridSide / 2) * (spaceBetween + cellSide);
+        Vector2 firstCellPos = new Vector2(firstCellPosX, firstCellPosX); 
         
-        for (int y = 0; y < gridHeight; y++)
+        for (int y = 0; y < gridSide; y++)
         {
             Vector2 currentPos = firstCellPos + new Vector2(0, y * (cellSide + spaceBetween));
             
-            for (int x = 0; x < gridWidth; x++)
+            for (int x = 0; x < gridSide; x++)
             {
                 CreateEmptyCell(currentPos, x, y);
                 currentPos += new Vector2(cellSide + spaceBetween, 0);

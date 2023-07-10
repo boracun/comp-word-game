@@ -671,6 +671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emptyCellPrefab: {fileID: 4775677974297493464, guid: cad04baaa7dbf4fe08919d37da9140c9, type: 3}
-  spaceBetween: 0.15
-  gridWidth: 3
-  gridHeight: 3
+  spaceBetween: 0.001
+  gridWidth: 5
+  gridHeight: 5
