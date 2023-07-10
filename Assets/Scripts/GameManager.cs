@@ -20,7 +20,13 @@ public class GameManager : MonoBehaviour
     private void InitializeGrid()
     {
         cellSide = emptyCellPrefab.GameObject().GetComponent<BoxCollider2D>().size.x;
-        float firstCellPosX = -(gridSide / 2) * (spaceBetween + cellSide);
+
+        float firstCellPosX;
+        if (gridSide % 2 == 1)
+            firstCellPosX = -(gridSide / 2) * (spaceBetween + cellSide);
+        else
+            firstCellPosX = -(gridSide / 2 - 0.5f) * (spaceBetween + cellSide);
+        
         Vector2 firstCellPos = new Vector2(firstCellPosX, firstCellPosX); 
         
         for (int y = 0; y < gridSide; y++)
