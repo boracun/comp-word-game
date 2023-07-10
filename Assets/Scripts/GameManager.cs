@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
      */
     private void InitializeGrid()
     {
-        cellSide = emptyCellPrefab.GameObject().GetComponent<BoxCollider2D>().size.x;
+        cellSide = emptyCellPrefab.transform.localScale.x;
 
         float firstCellPosX;
         if (gridSide % 2 == 1)
