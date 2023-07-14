@@ -1,12 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Letter : MonoBehaviour
+public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [HideInInspector] public Transform ParentTransform;
+
+    [SerializeField] private Image _image;
+    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     private LetterData _letterData;
-    private TextMeshPro _textMeshPro;
-    private SpriteRenderer _spriteRenderer;
     
     public LetterData LetterData
     {
@@ -14,37 +18,30 @@ public class Letter : MonoBehaviour
         set
         {
             _letterData = value;
-            _textMeshPro.text = _letterData.letter;
+            _textMeshProUGUI.text = _letterData.letter;
         }
     }
 
-    private void Awake()
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        _textMeshPro = GetComponentInChildren<TextMeshPro>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        ParentTransform = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
+
+        _image.raycastTarget = false;
+        _textMeshProUGUI.raycastTarget = false;
     }
 
-    private void OnMouseDrag()
+    public void OnDrag(PointerEventData eventData)
     {
-        var cameraPosition = GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -2f);
-        ToFront();
+        var cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        transform.position = new Vector3(cameraPosition.x, cameraPosition.y);
     }
 
-    private void OnMouseUp()
+    public void OnEndDrag(PointerEventData eventData)
     {
-        ToBack();
-    }
-
-    private void ToFront()
-    {
-        _spriteRenderer.sortingOrder = 5;
-        _textMeshPro.sortingOrder = 6;
-    }
-
-    private void ToBack()
-    {
-        _spriteRenderer.sortingOrder = 0;
-        _textMeshPro.sortingOrder = 1;
+        transform.SetParent(ParentTransform);
+        _image.raycastTarget = true;
+        _textMeshProUGUI.raycastTarget = true;
     }
 }
