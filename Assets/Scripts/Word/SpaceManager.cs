@@ -19,7 +19,6 @@ public class SpaceManager : MonoBehaviour
     public void AddLetterToWord()
     {
         _wordLength++;
-        Debug.Log("word length after: " + _wordLength);
     }
 
     public void CreateWordCell()
@@ -30,9 +29,6 @@ public class SpaceManager : MonoBehaviour
         GameObject newWordCell = Instantiate(WordCellPrefabGO, transform.position, Quaternion.identity);
         newWordCell.transform.SetParent(transform);
         newWordCell.transform.localScale = Vector3.one;
-        
-        
-        Debug.Log("child count after: " + transform.childCount);
     }
 
     private bool CanCreateWordCell()
