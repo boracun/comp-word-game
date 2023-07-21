@@ -30,6 +30,12 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         _image.raycastTarget = false;
         _textMeshProUGUI.raycastTarget = false;
+        
+        if (ParentTransform.GetComponent<WordCell>() != null)
+        {
+            SpaceManager.Instance.RemoveWordCell(ParentTransform.GetSiblingIndex());
+            SpaceManager.Instance.RemoveLetterFromWord();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

@@ -21,6 +21,11 @@ public class SpaceManager : MonoBehaviour
         _wordLength++;
     }
 
+    public void RemoveLetterFromWord()
+    {
+        _wordLength--;
+    }
+
     public void CreateWordCell()
     {
         if (!CanCreateWordCell())
@@ -29,6 +34,11 @@ public class SpaceManager : MonoBehaviour
         GameObject newWordCell = Instantiate(WordCellPrefabGO, transform.position, Quaternion.identity);
         newWordCell.transform.SetParent(transform);
         newWordCell.transform.localScale = Vector3.one;
+    }
+
+    public void RemoveWordCell(int cellIndex)
+    {
+        Destroy(transform.GetChild(cellIndex).gameObject);
     }
 
     private bool CanCreateWordCell()
