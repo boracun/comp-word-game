@@ -6,7 +6,7 @@ public class EmptyCellManager : MonoBehaviour
 {
     public static EmptyCellManager Instance { get; private set; }
 
-    [HideInInspector] public List<Transform> EmptyCellList;
+    [HideInInspector] public List<int> EmptyCellIdList;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class EmptyCellManager : MonoBehaviour
         }
         
         Instance = this;
-        EmptyCellList = new List<Transform>();
+        EmptyCellIdList = new List<int>();
     }
 
     private void Start()

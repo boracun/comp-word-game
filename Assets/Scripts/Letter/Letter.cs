@@ -31,6 +31,9 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         _image.raycastTarget = false;
         _textMeshProUGUI.raycastTarget = false;
         
+        if (ParentTransform.GetComponent<WordCell>() == null)
+            EmptyCellManager.Instance.EmptyCellIdList.Add(ParentTransform.GetComponent<Cell>().CellId);
+        
         if (ParentTransform.GetComponent<WordCell>() != null && ParentTransform.parent.childCount > 3)
         {
             SpaceManager.Instance.RemoveWordCell(ParentTransform.GetSiblingIndex());
@@ -49,5 +52,8 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         transform.SetParent(ParentTransform);
         _image.raycastTarget = true;
         _textMeshProUGUI.raycastTarget = true;
+        
+        if (ParentTransform.GetComponent<WordCell>() == null)
+            EmptyCellManager.Instance.EmptyCellIdList.Remove(ParentTransform.GetComponent<Cell>().CellId);
     }
 }
