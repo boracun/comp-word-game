@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 
 public class Cell : MonoBehaviour, IDropHandler
 {
+    public int CellId;
+    
     public void OnDrop(PointerEventData eventData)
     {
         if (transform.childCount > 0)
