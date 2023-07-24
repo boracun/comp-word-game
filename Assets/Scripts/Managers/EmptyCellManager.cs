@@ -25,6 +25,11 @@ public class EmptyCellManager : MonoBehaviour
         InitializeCellIds();
     }
 
+    public Transform GetRandomEmptyCellTransform()
+    {
+        return EmptyCellIdList.Count > 0 ? transform.GetChild(EmptyCellIdList[0]) : null;
+    }
+
     private void InitializeCellIds()
     {
         for (int i = 0; i < transform.childCount; i++)

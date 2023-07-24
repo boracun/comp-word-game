@@ -49,6 +49,12 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (ParentTransform == null)
+            ParentTransform = EmptyCellManager.Instance.GetRandomEmptyCellTransform();
+        
+        if (ParentTransform == null)
+            Destroy(gameObject);
+        
         transform.SetParent(ParentTransform);
         _image.raycastTarget = true;
         _textMeshProUGUI.raycastTarget = true;
