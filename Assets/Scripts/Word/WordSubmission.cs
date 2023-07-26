@@ -15,13 +15,24 @@ public class WordSubmission : MonoBehaviour
 
     public void SubmitWord()
     {
+        int wordPoints = 0;
+        string wordString = "";
+        
         foreach (Transform cellTransform in transform)
         {
             if (cellTransform.childCount == 0)
                 continue;
 
-            ScoreManager.Instance.IncreaseScore(cellTransform.GetChild(0).GetComponent<Letter>().LetterData.points);
+            LetterData letterData = cellTransform.GetChild(0).GetComponent<Letter>().LetterData;
+
+            wordPoints += letterData.points;
+            wordString += letterData.letter;
         }
+
+        if (!IsValid(wordString.ToLower()))
+            return;
+        
+        ScoreManager.Instance.IncreaseScore(wordPoints);
     }
 
     /**
