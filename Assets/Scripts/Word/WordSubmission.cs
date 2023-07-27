@@ -33,6 +33,7 @@ public class WordSubmission : MonoBehaviour
             return;
         
         ScoreManager.Instance.IncreaseScore(wordPoints);
+        SpaceManager.Instance.ResetWordContainer();
     }
 
     /**

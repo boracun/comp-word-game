@@ -9,6 +9,8 @@ public class WordCell : MonoBehaviour, IDropHandler
             return;
         
         SpaceManager.Instance.AddLetterToWord();
-        SpaceManager.Instance.CreateWordCell();
+        
+        if (SpaceManager.Instance.CanCreateWordCell())
+            SpaceManager.Instance.CreateWordCell();
     }
 }

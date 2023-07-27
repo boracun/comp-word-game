@@ -19,18 +19,17 @@ public class SpaceManager : MonoBehaviour
     public void AddLetterToWord()
     {
         _wordLength++;
+        Debug.Log("letter added. Length: " + _wordLength);
     }
 
     public void RemoveLetterFromWord()
     {
         _wordLength--;
+        Debug.Log("letter removed. Length: " + _wordLength);
     }
 
     public void CreateWordCell()
     {
-        if (!CanCreateWordCell())
-            return;
-        
         GameObject newWordCell = Instantiate(WordCellPrefabGO, transform.position, Quaternion.identity);
         newWordCell.transform.SetParent(transform);
         newWordCell.transform.localScale = Vector3.one;
@@ -41,11 +40,28 @@ public class SpaceManager : MonoBehaviour
         Destroy(transform.GetChild(cellIndex).gameObject);
     }
 
-    private bool CanCreateWordCell()
+    public bool CanCreateWordCell()
     {
         if (_wordLength < 3)
             return false;
 
         return transform.childCount == _wordLength;
+    }
+
+    public void ResetWordContainer()
+    {
+        int wordCellCount = transform.childCount;
+
+        for (int i = wordCellCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            CreateWordCell();
+        }
+
+        _wordLength = 0;
     }
 }
