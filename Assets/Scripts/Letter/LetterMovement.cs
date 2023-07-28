@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,6 +9,13 @@ public class LetterMovement : MonoBehaviour
     private Vector3 _endPosition;
     private float _time;
     private bool _isMoving;
+
+    private Letter _letterScript;
+
+    private void Start()
+    {
+        _letterScript = GetComponent<Letter>();
+    }
 
     private void Update()
     {
@@ -33,7 +39,11 @@ public class LetterMovement : MonoBehaviour
         _startPosition = transform.position;
         _endPosition = parentTransform.position;
         yield return new WaitForSeconds(TOTAL_DURATION);
+        
+        // Previously handled in the OnEndDrag event
         transform.SetParent(parentTransform);
+        _letterScript.Img.raycastTarget = true;
+        _letterScript.TMProUGUI.raycastTarget = true;
     }
 
     private Vector3 EaseInOutSine(Vector3 start, Vector3 end, float value)

@@ -22,6 +22,9 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         }
     }
 
+    public Image Img => _image;
+    public TextMeshProUGUI TMProUGUI => _textMeshProUGUI;
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         ParentTransform = transform.parent;
@@ -59,8 +62,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
             Destroy(gameObject);
         
         StartCoroutine(transform.GetComponent<LetterMovement>().MoveToParent(ParentTransform));
-        _image.raycastTarget = true;
-        _textMeshProUGUI.raycastTarget = true;
         
         if (ParentTransform.GetComponent<WordCell>() == null)
             EmptyCellManager.Instance.EmptyCellIdList.Remove(ParentTransform.GetComponent<Cell>().CellId);
