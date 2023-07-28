@@ -58,7 +58,7 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         if (ParentTransform == null)
             Destroy(gameObject);
         
-        transform.SetParent(ParentTransform);
+        StartCoroutine(transform.GetComponent<LetterMovement>().MoveToParent(ParentTransform));
         _image.raycastTarget = true;
         _textMeshProUGUI.raycastTarget = true;
         

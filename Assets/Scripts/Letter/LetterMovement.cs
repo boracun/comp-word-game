@@ -1,23 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class LetterMovement : MonoBehaviour
 {
-    private const float TOTAL_DURATION = 0.5f;
+    private const float TOTAL_DURATION = 0.3f;
     
-    private Vector2 _startPosition;
-    private Vector2 _endPosition;
+    private Vector3 _startPosition;
+    private Vector3 _endPosition;
     private float _time;
-    private bool _isMoving = true;
-
-    private RectTransform _rectTransform;
-
-    private void Start()
-    {
-        _startPosition = new Vector2(-750, -750);
-        _endPosition = new Vector2(500, 500);
-        _rectTransform = GetComponent<RectTransform>();
-    }
+    private bool _isMoving;
 
     private void Update()
     {
@@ -31,11 +23,20 @@ public class LetterMovement : MonoBehaviour
             return;
         }
 
-        _rectTransform.anchoredPosition = EaseInOutSine(_startPosition, _endPosition, _time);
+        transform.position = EaseInOutSine(_startPosition, _endPosition, _time);
         _time += Time.deltaTime / TOTAL_DURATION;
     }
-        
-    private Vector2 EaseInOutSine(Vector2 start, Vector2 end, float value)
+
+    public IEnumerator MoveToParent(Transform parentTransform)
+    {
+        _isMoving = true;
+        _startPosition = transform.position;
+        _endPosition = parentTransform.position;
+        yield return new WaitForSeconds(TOTAL_DURATION);
+        transform.SetParent(parentTransform);
+    }
+
+    private Vector3 EaseInOutSine(Vector3 start, Vector3 end, float value)
     {
         end -= start;
         return 0.5f * (Mathf.Cos(Mathf.PI * value) - 1) * (-end) + start;
