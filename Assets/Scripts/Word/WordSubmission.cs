@@ -29,7 +29,7 @@ public class WordSubmission : MonoBehaviour
             wordString += letterData.letter;
         }
 
-        if (!IsValid(wordString.ToLower()))
+        if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
             return;
         
         ScoreManager.Instance.IncreaseScore(wordPoints);
