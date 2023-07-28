@@ -5,6 +5,9 @@ public class LetterMovement : MonoBehaviour
 {
     private const float TOTAL_DURATION = 0.3f;
     
+    private const float BOTTOM_Y = -7.6f;   // Used for moving the letter out after submission
+    private const float MAX_X = 3f;
+    
     private Vector3 _startPosition;
     private Vector3 _endPosition;
     private float _time;
@@ -33,7 +36,7 @@ public class LetterMovement : MonoBehaviour
         _time += Time.deltaTime / TOTAL_DURATION;
     }
 
-    public IEnumerator MoveToParent(Transform parentTransform)
+    public IEnumerator MoveToTransform(Transform parentTransform)
     {
         _isMoving = true;
         _startPosition = transform.position;

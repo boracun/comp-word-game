@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance { get; private set; }
     
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private Animator animator;
 
     private int _score;
 
@@ -22,6 +23,7 @@ public class ScoreManager : MonoBehaviour
     {
         _score += scoreToAdd;
         scoreText.text = _score.ToString();
+        animator.SetTrigger("Score Up");
     }
 
     public void ResetScore()

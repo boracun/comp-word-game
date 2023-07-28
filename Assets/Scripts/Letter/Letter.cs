@@ -61,7 +61,7 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         if (ParentTransform == null)
             Destroy(gameObject);
         
-        StartCoroutine(transform.GetComponent<LetterMovement>().MoveToParent(ParentTransform));
+        StartCoroutine(transform.GetComponent<LetterMovement>().MoveToTransform(ParentTransform));
         
         if (ParentTransform.GetComponent<WordCell>() == null)
             EmptyCellManager.Instance.EmptyCellIdList.Remove(ParentTransform.GetComponent<Cell>().CellId);
