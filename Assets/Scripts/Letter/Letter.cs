@@ -33,12 +33,15 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         
         if (ParentTransform.GetComponent<WordCell>() == null)
             EmptyCellManager.Instance.EmptyCellIdList.Add(ParentTransform.GetComponent<Cell>().CellId);
+
+        if (ParentTransform.GetComponent<WordCell>() == null) 
+            return;
         
-        if (ParentTransform.GetComponent<WordCell>() != null && ParentTransform.parent.childCount > 3)
-        {
+        // If the letter is on a word cell
+        SpaceManager.Instance.RemoveLetterFromWord();
+            
+        if (ParentTransform.parent.childCount > 3)
             SpaceManager.Instance.RemoveWordCell(ParentTransform.GetSiblingIndex());
-            SpaceManager.Instance.RemoveLetterFromWord();
-        }
     }
 
     public void OnDrag(PointerEventData eventData)
