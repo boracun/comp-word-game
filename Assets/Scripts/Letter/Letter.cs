@@ -11,6 +11,8 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     private LetterData _letterData;
+
+    private Animator _animator;
     
     public LetterData LetterData
     {
@@ -25,6 +27,11 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public Image Img => _image;
     public TextMeshProUGUI TMProUGUI => _textMeshProUGUI;
 
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         ParentTransform = transform.parent;
@@ -33,6 +40,8 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         _image.raycastTarget = false;
         _textMeshProUGUI.raycastTarget = false;
+        
+        _animator.SetInteger("DragState", 1);
         
         if (ParentTransform.GetComponent<WordCell>() == null)
             EmptyCellManager.Instance.EmptyCellIdList.Add(ParentTransform.GetComponent<Cell>().CellId);
@@ -55,6 +64,8 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        _animator.SetInteger("DragState", 0);
+        
         if (ParentTransform == null)
             ParentTransform = EmptyCellManager.Instance.GetRandomEmptyCellTransform();
         
