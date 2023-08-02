@@ -11,6 +11,8 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     private LetterData _letterData;
+    private Cell _parentCell;
+    private LetterMovement _letterMovementScript;
 
     private Animator _animator;
     
@@ -30,6 +32,12 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _letterMovementScript = GetComponent<LetterMovement>();
+    }
+
+    private void Start()
+    {
+        _parentCell = GetComponentInParent<Cell>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -43,11 +51,11 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         
         _animator.SetInteger("DragState", 1);
         
-        if (ParentTransform.GetComponent<WordCell>() == null)
-            EmptyCellManager.Instance.EmptyCellIdList.Add(ParentTransform.GetComponent<Cell>().CellId);
-
-        if (ParentTransform.GetComponent<WordCell>() == null) 
+        if (!_parentCell.IsWordCell)
+        {
+            EmptyCellManager.Instance.EmptyCellIdList.Add(_parentCell.CellId);
             return;
+        }
         
         // If the letter is on a word cell
         SpaceManager.Instance.RemoveLetterFromWord();
@@ -72,9 +80,11 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         if (ParentTransform == null)
             Destroy(gameObject);
         
-        StartCoroutine(transform.GetComponent<LetterMovement>().MoveToTransform(ParentTransform));
+        _parentCell = ParentTransform.GetComponent<Cell>();
         
-        if (ParentTransform.GetComponent<WordCell>() == null)
-            EmptyCellManager.Instance.EmptyCellIdList.Remove(ParentTransform.GetComponent<Cell>().CellId);
+        StartCoroutine(_letterMovementScript.MoveToTransform(ParentTransform));
+        
+        if (!_parentCell.IsWordCell)
+            EmptyCellManager.Instance.EmptyCellIdList.Remove(_parentCell.CellId);
     }
 }
