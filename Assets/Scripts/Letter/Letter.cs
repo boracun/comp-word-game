@@ -58,8 +58,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         }
         
         // If the letter is on a word cell
-        SpaceManager.Instance.RemoveLetterFromWord();
-            
         if (ParentTransform.parent.childCount > 3)
             SpaceManager.Instance.RemoveWordCell(ParentTransform.GetSiblingIndex());
     }
@@ -80,7 +78,10 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         if (ParentTransform == null)
             Destroy(gameObject);
         
-        _parentCell = ParentTransform.GetComponent<Cell>();
+        Cell newCell = ParentTransform.GetComponent<Cell>();
+        SpaceManager.Instance.HandleWordLength(_parentCell.IsWordCell, newCell.IsWordCell);
+
+        _parentCell = newCell;
         
         StartCoroutine(_letterMovementScript.MoveToTransform(ParentTransform));
         

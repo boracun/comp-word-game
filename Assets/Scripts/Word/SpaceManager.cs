@@ -15,39 +15,22 @@ public class SpaceManager : MonoBehaviour
         else
             Instance = this;
     }
-
-    public void AddLetterToWord()
+    
+    public void HandleWordLength(bool previousIsWordCell, bool newIsWordCell)
     {
-        _wordLength++;
-        Debug.Log("letter added. Length: " + _wordLength);
+        if (previousIsWordCell && !newIsWordCell)
+            HandleWordToGrid();
+        else if (!previousIsWordCell && newIsWordCell)
+            HandleGridToWord();
+        else if (previousIsWordCell && newIsWordCell)
+            HandleWordToWord();
     }
-
-    public void RemoveLetterFromWord()
-    {
-        _wordLength--;
-        Debug.Log("letter removed. Length: " + _wordLength);
-    }
-
-    public void CreateWordCell()
-    {
-        GameObject newWordCell = Instantiate(WordCellPrefabGO, transform.position, Quaternion.identity);
-        newWordCell.transform.SetParent(transform);
-        newWordCell.transform.localScale = Vector3.one;
-    }
-
+    
     public void RemoveWordCell(int cellIndex)
     {
         Destroy(transform.GetChild(cellIndex).gameObject);
     }
-
-    public bool CanCreateWordCell()
-    {
-        if (_wordLength < 3)
-            return false;
-
-        return transform.childCount == _wordLength;
-    }
-
+    
     public void ResetWordContainer()
     {
         int wordCellCount = transform.childCount;
@@ -71,5 +54,41 @@ public class SpaceManager : MonoBehaviour
         }
 
         _wordLength = 0;
+    }
+    
+    private void CreateWordCell()
+    {
+        GameObject newWordCell = Instantiate(WordCellPrefabGO, transform.position, Quaternion.identity);
+        newWordCell.transform.SetParent(transform);
+        newWordCell.transform.localScale = Vector3.one;
+    }
+    
+    private bool CanCreateWordCell()
+    {
+        if (_wordLength < 3)
+            return false;
+
+        return transform.childCount == _wordLength;
+    }
+
+    private void HandleGridToWord()
+    {
+        _wordLength++;
+        Debug.Log("letter added. Length: " + _wordLength);
+        
+        if (CanCreateWordCell())
+            CreateWordCell();
+    }
+
+    private void HandleWordToGrid()
+    {
+        _wordLength--;
+        Debug.Log("letter removed. Length: " + _wordLength);
+    }
+
+    private void HandleWordToWord()
+    {
+        if (CanCreateWordCell())
+            CreateWordCell();
     }
 }
