@@ -54,6 +54,14 @@ public class SpaceManager : MonoBehaviour
 
         for (int i = wordCellCount - 1; i >= 0; i--)
         {
+            if (transform.GetChild(i).childCount > 0)
+            {
+                GameObject letterGO = transform.GetChild(i).GetChild(0).gameObject;
+                letterGO.transform.SetParent(transform.root);
+                letterGO.transform.SetAsLastSibling();
+                StartCoroutine(letterGO.GetComponent<LetterMovement>().MoveDownAfterSubmission());
+            }
+            
             Destroy(transform.GetChild(i).gameObject);
         }
 

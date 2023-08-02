@@ -49,6 +49,16 @@ public class LetterMovement : MonoBehaviour
         _letterScript.TMProUGUI.raycastTarget = true;
     }
 
+    public IEnumerator MoveDownAfterSubmission()
+    {
+        _isMoving = true;
+        _startPosition = transform.position;
+        _endPosition = new Vector3(Random.Range(-MAX_X, MAX_X), BOTTOM_Y);
+        yield return new WaitForSeconds(TOTAL_DURATION);
+        
+        Destroy(gameObject);
+    }
+
     private Vector3 EaseInOutSine(Vector3 start, Vector3 end, float value)
     {
         end -= start;
