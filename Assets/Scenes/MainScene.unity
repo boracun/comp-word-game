@@ -3333,6 +3333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1645514803}
   animator: {fileID: 1645514805}
+  pointPrefab: {fileID: 1679475815397821783, guid: d50b3bcfb776f461f9dd467409b60861, type: 3}
 --- !u!1001 &1106369582
 PrefabInstance:
   m_ObjectHideFlags: 0
