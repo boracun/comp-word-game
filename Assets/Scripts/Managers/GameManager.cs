@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AssignLettersToCells();
+        StartTimer();
     }
 
     private void AssignLettersToCells()
@@ -30,5 +31,10 @@ public class GameManager : MonoBehaviour
         letterObject.GetComponent<Letter>().LetterData = letterData;
         letterObject.transform.SetParent(cellObject.transform);
         letterObject.transform.localScale = Vector3.one;    // TODO: If this is not explicitly set, the letters become too big. This is most probably caused by the layout group in cells.
+    }
+
+    private void StartTimer()
+    {
+        TimeManager.Instance.StartTimer();
     }
 }
