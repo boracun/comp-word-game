@@ -20,11 +20,11 @@ public class ScoreManager : MonoBehaviour
             Instance = this;
     }
 
-    public void IncreaseScore(int scoreToAdd, Vector3 pointIncreasePosition)
+    public void IncreaseScore(int scoreToAdd, int wordLength, Vector3 pointIncreasePosition)
     {
-        _score += scoreToAdd;
+        _score += scoreToAdd + wordLength;
         scoreText.text = _score.ToString();
-        DisplayScoreIncrease(scoreToAdd, pointIncreasePosition);
+        DisplayScoreIncrease(scoreToAdd, wordLength, pointIncreasePosition);
         animator.SetTrigger("Score Up");
     }
 
@@ -34,10 +34,10 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = _score.ToString();
     }
 
-    private void DisplayScoreIncrease(int scoreToAdd, Vector3 position)
+    private void DisplayScoreIncrease(int scoreToAdd, int wordLength, Vector3 position)
     {
         GameObject pointGO = Instantiate(pointPrefab, position, Quaternion.identity);
-        pointGO.GetComponent<TextMeshProUGUI>().text = "+" + scoreToAdd;
+        pointGO.GetComponent<TextMeshProUGUI>().text = "+" + scoreToAdd + " letter score \n+" + wordLength + " length score";
         pointGO.transform.SetParent(transform.root);
         pointGO.transform.SetAsLastSibling();
         pointGO.transform.localScale = Vector3.one;
