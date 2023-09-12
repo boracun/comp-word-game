@@ -377,6 +377,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 285679721}
     m_Modifications:
+    - target: {fileID: 6013207091623581601, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013207091623581601, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ba659cd79ce4430bb8244dd93d47b39, type: 3}
     - target: {fileID: 6056086204187039863, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
       propertyPath: m_Name
       value: Boost 4
@@ -1357,6 +1365,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 285679721}
     m_Modifications:
+    - target: {fileID: 6013207091623581601, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013207091623581601, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cd73501c415c24294a66749bcd57f5f0, type: 3}
     - target: {fileID: 6056086204187039863, guid: 34fad8c832a544bc1bdbf4872e14d300, type: 3}
       propertyPath: m_Name
       value: Boost 3
