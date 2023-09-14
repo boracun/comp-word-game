@@ -6,6 +6,8 @@ using UnityEngine;
 public class SpecialAction : MonoBehaviour
 {
     private GameObject _gridContainerGO;
+
+    [SerializeField] private CooldownDisplayer _cooldownDisplayerScript;
     
     private void Awake()
     {
@@ -20,6 +22,7 @@ public class SpecialAction : MonoBehaviour
     IEnumerator UseItemForDuration(SpecialItem specialItem, float durationSeconds)
     {
         SpecialItemManager.Instance.UseItem(specialItem);
+        _cooldownDisplayerScript.StartCooldown(durationSeconds);
         yield return new WaitForSeconds(durationSeconds);
         SpecialItemManager.Instance.StopUsingItem(specialItem);
     }
