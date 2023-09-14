@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using SpecialItems;
 using UnityEngine;
 
 public class SpecialAction : MonoBehaviour
@@ -10,20 +12,16 @@ public class SpecialAction : MonoBehaviour
         _gridContainerGO = GameObject.Find("Grid Container");
     }
 
-    public void ReplaceHorizontally()
+    public void MultiplyPointsByTwo()
     {
-        // Pick the row to replace first: Assume first row for now
-        int row = 0;
+        StartCoroutine(UseItemForDuration(SpecialItem.Multiplier2Item, 30f));
+    }
 
-        // Send the old letters down
-        for (int i = row * 5; i < row * 5 + 5; i++)
-        {
-            StartCoroutine(_gridContainerGO.transform.GetChild(i).GetChild(0).GetComponent<LetterMovement>()
-                .MoveDownAfterSubmission());
-        }
-        
-        // Bring new letters from top
-
+    IEnumerator UseItemForDuration(SpecialItem specialItem, float durationSeconds)
+    {
+        SpecialItemManager.Instance.UseItem(specialItem);
+        yield return new WaitForSeconds(durationSeconds);
+        SpecialItemManager.Instance.StopUsingItem(specialItem);
     }
 }
 

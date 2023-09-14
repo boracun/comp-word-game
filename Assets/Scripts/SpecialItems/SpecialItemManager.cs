@@ -30,7 +30,7 @@ public class SpecialItemManager : MonoBehaviour
         _specialItemsInUse.Add(specialItem);
     }
 
-    public void EndUsingItem(SpecialItem specialItem)
+    public void StopUsingItem(SpecialItem specialItem)
     {
         _specialItemsInUse.Remove(specialItem);
     }

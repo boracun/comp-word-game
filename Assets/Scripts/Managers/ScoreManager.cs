@@ -1,4 +1,5 @@
 using System;
+using SpecialItems;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,12 @@ public class ScoreManager : MonoBehaviour
 
     public void IncreaseScore(int scoreToAdd, int wordLength, Vector3 pointIncreasePosition)
     {
+        if (SpecialItemManager.Instance.IsInUse(SpecialItem.Multiplier2Item))
+        {
+            scoreToAdd *= 2;
+            wordLength *= 2;
+        }
+        
         _score += scoreToAdd + wordLength;
         scoreText.text = _score.ToString();
         DisplayScoreIncrease(scoreToAdd, wordLength, pointIncreasePosition);
