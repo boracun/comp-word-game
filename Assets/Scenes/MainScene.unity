@@ -1624,6 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc19c9d45ab5a4d21b406ef2f5e7fc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cooldownDisplayerScript: {fileID: 0}
 --- !u!114 &395946704
 MonoBehaviour:
   m_ObjectHideFlags: 0
