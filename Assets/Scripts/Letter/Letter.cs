@@ -101,6 +101,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         _letterData = SpecialItemManager.Instance.WildLetterData;
         _textMeshProUGUI.text = "?";
         _image.color = new Color(0.729f, 0.183f, 0.262f);
-        _specialActionScript.UseWildLetter();
+        _specialActionScript.UseWildLetter(true);
     }
 }

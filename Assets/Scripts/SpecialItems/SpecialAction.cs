@@ -23,14 +23,14 @@ public class SpecialAction : MonoBehaviour
         _button = GetComponent<Button>();
     }
 
-    public void UseWildLetter()
+    public void UseWildLetter(bool decremented = false)
     {
         // Deactivate
         if (SpecialItemManager.Instance.IsInUse(SpecialItem.WildLetterItem))
         {
             Destroy(_originalParentTransform.GetChild(0).gameObject);
             
-            SpecialItemManager.Instance.StopUsingItem(SpecialItem.WildLetterItem);
+            SpecialItemManager.Instance.StopUsingItem(SpecialItem.WildLetterItem, decremented);
             transform.SetParent(_originalParentTransform);
             transform.SetAsFirstSibling();
             
@@ -63,7 +63,7 @@ public class SpecialAction : MonoBehaviour
     IEnumerator UseItemForDuration(SpecialItem specialItem, float durationSeconds)
     {
         _button.interactable = false;
-        SpecialItemManager.Instance.UseItem(specialItem);
+        SpecialItemManager.Instance.UseItem(specialItem, true);
         _cooldownDisplayerScript.StartCooldown(durationSeconds);
         yield return new WaitForSeconds(durationSeconds);
         SpecialItemManager.Instance.StopUsingItem(specialItem);
