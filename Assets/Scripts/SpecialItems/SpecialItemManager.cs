@@ -56,6 +56,11 @@ public class SpecialItemManager : MonoBehaviour
         UpdateInventoryDisplay();
     }
 
+    public bool CanBeUsed(SpecialItem specialItem)
+    {
+        return _itemCounts[(int)specialItem] > 0;
+    }
+
     private void UpdateInventoryDisplay()
     {
         for (int i = 0; i < _itemCounts.Count; i++)

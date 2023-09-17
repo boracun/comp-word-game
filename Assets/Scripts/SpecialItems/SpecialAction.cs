@@ -25,6 +25,9 @@ public class SpecialAction : MonoBehaviour
 
     public void UseWildLetter(bool decremented = false)
     {
+        if (!SpecialItemManager.Instance.CanBeUsed(SpecialItem.WildLetterItem))
+            return;
+        
         // Deactivate
         if (SpecialItemManager.Instance.IsInUse(SpecialItem.WildLetterItem))
         {
@@ -57,6 +60,9 @@ public class SpecialAction : MonoBehaviour
 
     public void MultiplyPointsByTwo()
     {
+        if (!SpecialItemManager.Instance.CanBeUsed(SpecialItem.Multiplier2Item))
+            return;
+        
         StartCoroutine(UseItemForDuration(SpecialItem.Multiplier2Item, 30f));
     }
 
