@@ -29,8 +29,9 @@ public class WordSubmission : MonoBehaviour
             wordString += letterData.letter;
         }
 
-        if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
-            return;
+        // TODO: Uncomment these before release
+        // if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
+        //     return;
         
         ScoreManager.Instance.IncreaseScore(wordPoints, wordString.Length, transform.position);
         SpaceManager.Instance.ResetWordContainer();

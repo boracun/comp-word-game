@@ -375,6 +375,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldownDisplayerScript: {fileID: 8144169807731355340}
+  darkPanel: {fileID: 0}
+  specialItemPrefab: {fileID: 6056086204187039863}
 --- !u!1 &7124745213750700776
 GameObject:
   m_ObjectHideFlags: 0

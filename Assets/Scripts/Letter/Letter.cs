@@ -1,4 +1,5 @@
 using System;
+using SpecialItems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,9 +11,11 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+
     private LetterData _letterData;
     private Cell _parentCell;
     private LetterMovement _letterMovementScript;
+    private SpecialAction _specialActionScript;
 
     private Animator _animator;
     
@@ -33,6 +36,7 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         _animator = GetComponent<Animator>();
         _letterMovementScript = GetComponent<LetterMovement>();
+        _specialActionScript = GameObject.Find("Boost 1").GetComponent<SpecialAction>();
     }
 
     private void Start()
@@ -87,5 +91,16 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         
         if (!_parentCell.IsWordCell)
             EmptyCellManager.Instance.EmptyCellIdList.Remove(_parentCell.CellId);
+    }
+
+    public void ReplaceLetter()
+    {
+        if (!SpecialItemManager.Instance.IsInUse(SpecialItem.WildLetterItem))
+            return;
+
+        _letterData = SpecialItemManager.Instance.WildLetterData;
+        _textMeshProUGUI.text = "?";
+        _image.color = new Color(0.729f, 0.183f, 0.262f);
+        _specialActionScript.UseWildLetter();
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 public class SpecialItemManager : MonoBehaviour
 {
     public static SpecialItemManager Instance { get; private set; }
+    public LetterData WildLetterData;
+    
     private List<SpecialItem> _specialItemsInUse;
 
     private void Awake()
