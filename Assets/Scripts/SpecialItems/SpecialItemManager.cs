@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using SpecialItems;
 using TMPro;
 using UnityEngine;
@@ -43,6 +44,7 @@ public class SpecialItemManager : MonoBehaviour
         
         _itemCounts[(int)specialItem]--;
         UpdateInventoryDisplay();
+        SaveItemCounts();
     }
 
     public void StopUsingItem(SpecialItem specialItem, bool decremented = false)
@@ -54,6 +56,7 @@ public class SpecialItemManager : MonoBehaviour
         
         _itemCounts[(int)specialItem]--;
         UpdateInventoryDisplay();
+        SaveItemCounts();
     }
 
     public bool CanBeUsed(SpecialItem specialItem)
@@ -67,5 +70,21 @@ public class SpecialItemManager : MonoBehaviour
         {
             _itemCountDisplays[i].text = _itemCounts[i].ToString();
         }
+    }
+
+    private void SaveItemCounts()
+    {
+        string json = JsonUtility.ToJson(new ItemCounts(_itemCounts));
+        File.WriteAllText(Application.persistentDataPath + "/items.json", json);
+    }
+}
+
+public struct ItemCounts
+{
+    public List<int> ItemCountList;
+
+    public ItemCounts(List<int> itemCountList)
+    {
+        ItemCountList = itemCountList;
     }
 }
