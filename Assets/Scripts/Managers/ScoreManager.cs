@@ -10,7 +10,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject pointPrefab;
-
+    [SerializeField] private TextMeshProUGUI finalScoreText;
+ 
     private int _score;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = _score.ToString();
         DisplayScoreIncrease(scoreToAdd, wordLength, pointIncreasePosition);
         animator.SetTrigger("Score Up");
+        finalScoreText.text = "Score: " + _score;
     }
 
     public void ResetScore()

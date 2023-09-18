@@ -8,6 +8,8 @@ public class TimeManager : MonoBehaviour
     public static TimeManager Instance { get; private set; }
     
     [SerializeField] private float initialTime;     // in seconds
+    [SerializeField] private GameObject gameOverPanelGO;
+    
     private bool _paused = true;
     private float _time;
     private TextMeshProUGUI _timerText;
@@ -39,6 +41,7 @@ public class TimeManager : MonoBehaviour
             return;
         
         // TODO: Operations after the time runs out
+        gameOverPanelGO.SetActive(true);
         _paused = true;
     }
 
