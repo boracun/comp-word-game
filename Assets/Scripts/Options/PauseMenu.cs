@@ -17,11 +17,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
+        ScoreManager.Instance.SaveScore();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartGame()
     {
+        ScoreManager.Instance.SaveScore();
         SceneManager.LoadScene("MainScene");
     }
 }

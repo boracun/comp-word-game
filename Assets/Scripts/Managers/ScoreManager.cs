@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using SpecialItems;
 using TMPro;
 using UnityEngine;
@@ -50,5 +51,10 @@ public class ScoreManager : MonoBehaviour
         pointGO.transform.SetParent(transform.root);
         pointGO.transform.SetAsLastSibling();
         pointGO.transform.localScale = Vector3.one;
+    }
+
+    public void SaveScore()
+    {
+        File.AppendAllLines(Application.persistentDataPath + "/scores.txt", new []{ DateTime.Now + "***" + _score });
     }
 }

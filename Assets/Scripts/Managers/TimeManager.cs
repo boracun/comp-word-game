@@ -40,8 +40,9 @@ public class TimeManager : MonoBehaviour
         if (_time > 0f)
             return;
         
-        // TODO: Operations after the time runs out
+        // Operations after the time runs out
         gameOverPanelGO.SetActive(true);
+        ScoreManager.Instance.SaveScore();
         _paused = true;
     }
 
