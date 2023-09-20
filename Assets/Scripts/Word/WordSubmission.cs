@@ -35,6 +35,7 @@ public class WordSubmission : MonoBehaviour
         
         ScoreManager.Instance.IncreaseScore(wordPoints, wordString.Length, transform.position);
         SpaceManager.Instance.ResetWordContainer();
+        EmptyCellManager.Instance.FillAllEmptyCells();
     }
 
     /**

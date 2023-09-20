@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EmptyCellIdList: 
+  letterPrefab: {fileID: 8653721219281738492, guid: c1b617a5ef5c04c039905a446bcd1e12, type: 3}
 --- !u!1001 &8001043
 PrefabInstance:
   m_ObjectHideFlags: 0

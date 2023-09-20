@@ -39,14 +39,11 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         _specialActionScript = GameObject.Find("Boost 1").GetComponent<SpecialAction>();
     }
 
-    private void Start()
-    {
-        _parentCell = GetComponentInParent<Cell>();
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         ParentTransform = transform.parent;
+        _parentCell = GetComponentInParent<Cell>();
+        
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
 

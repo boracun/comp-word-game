@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EmptyCellManager : MonoBehaviour
 {
+    private const float TOP_Y = 7.6f;   // Used for moving the letter out after submission
+    private const float MAX_X = 3f;
+    
     public static EmptyCellManager Instance { get; private set; }
 
     [HideInInspector] public List<int> EmptyCellIdList;
+    [SerializeField] private GameObject letterPrefab;
 
     private void Awake()
     {
@@ -25,9 +30,33 @@ public class EmptyCellManager : MonoBehaviour
         InitializeCellIds();
     }
 
+    // Not random
     public Transform GetRandomEmptyCellTransform()
     {
         return EmptyCellIdList.Count > 0 ? transform.GetChild(EmptyCellIdList[0]) : null;
+    }
+
+    public void FillAllEmptyCells()
+    {
+        while (EmptyCellIdList.Count > 0)   
+        {
+            FillEmptyCell();
+        }
+    }
+
+    public void FillEmptyCell()
+    {
+        if (EmptyCellIdList.Count == 0)
+            return;
+        
+        Vector3 spawnPosition = new Vector3(Random.Range(-MAX_X, MAX_X), TOP_Y);
+        GameObject letterGO = Instantiate(letterPrefab, spawnPosition, Quaternion.identity, transform.parent);
+        letterGO.GetComponent<Letter>().LetterData = GameManager.GetRandomLetterData();
+        
+        Transform emptyCellTransform = GetRandomEmptyCellTransform();
+        EmptyCellIdList.Remove(EmptyCellIdList[0]);
+
+        StartCoroutine(letterGO.GetComponent<LetterMovement>().MoveToTransform(emptyCellTransform));
     }
 
     private void InitializeCellIds()

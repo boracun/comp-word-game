@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,6 +8,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject letterPrefab;
     [SerializeField] private GameObject gridContainer;
     [SerializeField] private List<LetterData> letterDataList;
+
+    public static List<LetterData> StaticLetterDataList;
+
+    private void Awake()
+    {
+        StaticLetterDataList = letterDataList;
+    }
 
     private void Start()
     {
@@ -36,5 +44,11 @@ public class GameManager : MonoBehaviour
     private void StartTimer()
     {
         TimeManager.Instance.StartTimer();
+    }
+
+    public static LetterData GetRandomLetterData()
+    {
+        int randomIndex = Random.Range(0, StaticLetterDataList.Count);
+        return StaticLetterDataList[randomIndex];
     }
 }
