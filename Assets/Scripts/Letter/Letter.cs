@@ -15,7 +15,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     private LetterData _letterData;
     private Cell _parentCell;
     private LetterMovement _letterMovementScript;
-    private SpecialAction _specialActionScript;
 
     private Animator _animator;
     
@@ -36,7 +35,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         _animator = GetComponent<Animator>();
         _letterMovementScript = GetComponent<LetterMovement>();
-        _specialActionScript = GameObject.Find("Boost 1").GetComponent<SpecialAction>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -98,6 +96,23 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         _letterData = SpecialItemManager.Instance.WildLetterData;
         _textMeshProUGUI.text = "?";
         _image.color = new Color(0.729f, 0.183f, 0.262f);
-        _specialActionScript.UseWildLetter(true);
+        
+        SpecialAction specialActionScript = GameObject.Find("Boost 1").GetComponent<SpecialAction>();
+        specialActionScript.UseWildLetter(true);
+    }
+
+    public void IncrementValue(int incrementAmount)
+    {
+        if (!SpecialItemManager.Instance.IsInUse(SpecialItem.Plus10Item))
+            return;
+
+        LetterData boostedLetterData = ScriptableObject.CreateInstance<LetterData>();
+        boostedLetterData.SetValues(_letterData.letter, _letterData.points + incrementAmount);
+        _letterData = boostedLetterData;
+        
+        _image.color = new Color(0.333f, 0.913f, 1f);
+        
+        SpecialAction specialActionScript = GameObject.Find("Boost 3").GetComponent<SpecialAction>();
+        specialActionScript.IncrementLetterValue(true);
     }
 }

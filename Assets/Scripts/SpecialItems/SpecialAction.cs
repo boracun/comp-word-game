@@ -23,6 +23,11 @@ public class SpecialAction : MonoBehaviour
         _button = GetComponent<Button>();
     }
 
+    private void Start()
+    {
+         _originalParentTransform = transform.parent;
+    }
+
     public void UseWildLetter(bool decremented = false)
     {
         if (!SpecialItemManager.Instance.CanBeUsed(SpecialItem.WildLetterItem))
@@ -34,6 +39,7 @@ public class SpecialAction : MonoBehaviour
             Destroy(_originalParentTransform.GetChild(0).gameObject);
             
             SpecialItemManager.Instance.StopUsingItem(SpecialItem.WildLetterItem, decremented);
+            Debug.Log(transform.name);
             transform.SetParent(_originalParentTransform);
             transform.SetAsFirstSibling();
             
@@ -64,6 +70,42 @@ public class SpecialAction : MonoBehaviour
             return;
         
         StartCoroutine(UseItemForDuration(SpecialItem.Multiplier2Item, 30f));
+    }
+    
+    public void IncrementLetterValue(bool decremented = false)
+    {
+        if (!SpecialItemManager.Instance.CanBeUsed(SpecialItem.Plus10Item))
+            return;
+        
+        // Deactivate
+        if (SpecialItemManager.Instance.IsInUse(SpecialItem.Plus10Item))
+        {
+            Destroy(_originalParentTransform.GetChild(2).gameObject);
+            
+            SpecialItemManager.Instance.StopUsingItem(SpecialItem.Plus10Item, decremented);
+            Debug.Log(transform.name);
+            transform.SetParent(_originalParentTransform);
+            transform.SetSiblingIndex(2);
+            
+            _gridContainerGO.transform.SetParent(transform.root);
+            _gridContainerGO.transform.SetSiblingIndex(_gridContainerSiblingIndex);
+            
+            darkPanel.SetActive(false);
+        }
+        // Activate
+        else
+        {
+            SpecialItemManager.Instance.UseItem(SpecialItem.Plus10Item);
+            _originalParentTransform = transform.parent;
+            transform.SetParent(darkPanel.transform);
+            
+            _gridContainerGO.transform.SetParent(darkPanel.transform);
+            
+            darkPanel.SetActive(true);
+            
+            GameObject placeHolderItem = Instantiate(specialItemPrefab, transform.position, Quaternion.identity, _originalParentTransform);
+            placeHolderItem.transform.SetSiblingIndex(2);
+        }
     }
 
     IEnumerator UseItemForDuration(SpecialItem specialItem, float durationSeconds)

@@ -4,7 +4,7 @@ namespace SpecialItems
     {
         WildLetterItem,
         Multiplier2Item,
-        LetterValuesItem,
+        Plus10Item,
         HintItem
     }
 }
