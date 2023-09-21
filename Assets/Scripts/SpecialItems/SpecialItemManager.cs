@@ -26,7 +26,7 @@ public class SpecialItemManager : MonoBehaviour
         _specialItemsInUse = new List<SpecialItem>();
         
         // TODO: Load from save file
-        _itemCounts = new List<int> { 5, 5, 5, 5 };
+        _itemCounts = new List<int> { 5, 5, 5 };
         UpdateInventoryDisplay();
     }
 

@@ -39,7 +39,6 @@ public class SpecialAction : MonoBehaviour
             Destroy(_originalParentTransform.GetChild(0).gameObject);
             
             SpecialItemManager.Instance.StopUsingItem(SpecialItem.WildLetterItem, decremented);
-            Debug.Log(transform.name);
             transform.SetParent(_originalParentTransform);
             transform.SetAsFirstSibling();
             
@@ -83,7 +82,6 @@ public class SpecialAction : MonoBehaviour
             Destroy(_originalParentTransform.GetChild(2).gameObject);
             
             SpecialItemManager.Instance.StopUsingItem(SpecialItem.Plus10Item, decremented);
-            Debug.Log(transform.name);
             transform.SetParent(_originalParentTransform);
             transform.SetSiblingIndex(2);
             
