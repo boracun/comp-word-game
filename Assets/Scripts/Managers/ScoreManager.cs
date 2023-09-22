@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using SpecialItems;
@@ -58,7 +59,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        File.AppendAllLines(Application.persistentDataPath + "/scores.txt", new []{ DateTime.Now + "***" + _score });
+        File.AppendAllLines(Application.persistentDataPath + "/scores.txt", new []{ DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")) + "***" + _score });
         
         string[] highScoreStrings;
         
@@ -66,8 +67,6 @@ public class ScoreManager : MonoBehaviour
             highScoreStrings = File.ReadAllLines(Application.persistentDataPath + "/highScores.txt");
         else
             highScoreStrings = new string[] { };
-
-        Debug.Log(highScoreStrings.Length);
 
         if (highScoreStrings.Length >= 10 &&
             int.Parse(highScoreStrings[9].Substring(highScoreStrings[9].IndexOf('*') + 1)) >= _score)
@@ -81,7 +80,7 @@ public class ScoreManager : MonoBehaviour
                 int.Parse(scoreString.Substring(scoreString.IndexOf('*') + 1)));
         }
 
-        highScoreDict.Add(DateTime.Now.ToString(), _score);
+        highScoreDict.Add(DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")), _score);
 
         int index = 0;
 
