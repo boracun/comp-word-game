@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; }
-    
+
     [SerializeField] private float initialTime;     // in seconds
     [SerializeField] private GameObject gameOverPanelGO;
     
@@ -14,6 +14,8 @@ public class TimeManager : MonoBehaviour
     private float _time;
     private TextMeshProUGUI _timerText;
     private Image _timerBackground;
+    
+    public bool IsPaused => _paused;
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (_paused)
+        if (IsPaused)
             return;
 
         _time -= Time.deltaTime;

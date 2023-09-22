@@ -17,13 +17,15 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        ScoreManager.Instance.SaveScore();
+        if (!TimeManager.Instance.IsPaused)
+            ScoreManager.Instance.SaveScore();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartGame()
     {
-        ScoreManager.Instance.SaveScore();
+        if (!TimeManager.Instance.IsPaused)
+            ScoreManager.Instance.SaveScore();
         SceneManager.LoadScene("MainScene");
     }
 }
