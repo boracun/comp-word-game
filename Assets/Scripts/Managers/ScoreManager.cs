@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using SpecialItems;
 using TMPro;
@@ -14,6 +15,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI finalScoreText;
  
     private int _score;
+    private List<int> _highScoreList;
 
     private void Awake()
     {
