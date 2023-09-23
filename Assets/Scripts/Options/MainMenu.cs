@@ -12,4 +12,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("HighScoresScene");
     }
+
+    public void OpenTutorialScene()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
 }
