@@ -2976,7 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da18b6a0fb8f648e28de8079ec675ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTime: 5
+  initialTime: 180
   gameOverPanelGO: {fileID: 1405976331}
 --- !u!1 &619394800
 GameObject:
