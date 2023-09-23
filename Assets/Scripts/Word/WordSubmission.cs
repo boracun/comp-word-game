@@ -30,8 +30,8 @@ public class WordSubmission : MonoBehaviour
         }
 
         // TODO: Uncomment these before release
-        // if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
-        //     return;
+        if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
+            return;
         
         ScoreManager.Instance.IncreaseScore(wordPoints, wordString.Length, transform.position);
         SpaceManager.Instance.ResetWordContainer();
