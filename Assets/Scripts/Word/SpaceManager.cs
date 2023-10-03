@@ -74,7 +74,6 @@ public class SpaceManager : MonoBehaviour
     private void HandleGridToWord()
     {
         _wordLength++;
-        Debug.Log("letter added. Length: " + _wordLength);
         
         if (CanCreateWordCell())
             CreateWordCell();
@@ -83,7 +82,6 @@ public class SpaceManager : MonoBehaviour
     private void HandleWordToGrid()
     {
         _wordLength--;
-        Debug.Log("letter removed. Length: " + _wordLength);
     }
 
     private void HandleWordToWord()

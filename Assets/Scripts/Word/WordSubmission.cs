@@ -7,10 +7,11 @@ using UnityEngine;
 public class WordSubmission : MonoBehaviour
 {
     private List<string> _validWordList;
+    [SerializeField] private TextAsset wordListAsset;
     
     private void Awake()
     {
-        _validWordList = File.ReadAllLines(@"Assets/WordList/MIT.txt").ToList();
+        _validWordList = wordListAsset.text.Split('\n').ToList();
     }
 
     public void SubmitWord()
@@ -29,7 +30,6 @@ public class WordSubmission : MonoBehaviour
             wordString += letterData.letter;
         }
 
-        // TODO: Uncomment these before release
         if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
             return;
         
