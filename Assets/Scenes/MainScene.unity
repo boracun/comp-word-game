@@ -4308,7 +4308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04201df806bde40859616aec1220b563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordListAsset: {fileID: 4900000, guid: 1f1ba401752d4b349e4d6ca448a5ac3f, type: 3}
+  wordListAsset: {fileID: 4900000, guid: df0db3a493bfd43d0a200acdd8ad8856, type: 3}
 --- !u!114 &976892445
 MonoBehaviour:
   m_ObjectHideFlags: 0
