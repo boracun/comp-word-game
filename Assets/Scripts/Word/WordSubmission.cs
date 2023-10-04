@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class WordSubmission : MonoBehaviour
@@ -43,6 +45,9 @@ public class WordSubmission : MonoBehaviour
      */
     private bool IsValid(string submission)
     {
+        if (submission.Contains('.'))
+            return IsValidWithWildLetters(submission);
+        
         int high = _validWordList.Count - 1;
         int low = 0;
         int mid = high / 2;
@@ -70,5 +75,11 @@ public class WordSubmission : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool IsValidWithWildLetters(string submission)
+    {
+        Regex regex = new Regex("^" + submission + "$");
+        return _validWordList.Count(s => regex.IsMatch(s)) > 0;
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf06ab2532c447288c527fd449dde9e, type: 3}
   m_Name: WildLetter
   m_EditorClassIdentifier: 
-  letter: '?'
+  letter: .
   points: 5
