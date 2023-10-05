@@ -24,9 +24,8 @@ public class SpecialItemManager : MonoBehaviour
         
         Instance = this;
         _specialItemsInUse = new List<SpecialItem>();
-        
-        // TODO: Load from save file
-        _itemCounts = new List<int> { 5, 5, 5 };
+
+        _itemCounts = LoadItemCounts();
         UpdateInventoryDisplay();
     }
 
@@ -76,6 +75,12 @@ public class SpecialItemManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(new ItemCounts(_itemCounts));
         File.WriteAllText(Application.persistentDataPath + "/items.json", json);
+    }
+
+    private List<int> LoadItemCounts()
+    {
+        string json = File.ReadAllText(Application.persistentDataPath + "/items.json");
+        return JsonUtility.FromJson<ItemCounts>(json).ItemCountList;
     }
 }
 
