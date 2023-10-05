@@ -1,3 +1,4 @@
+using SpecialItems;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
@@ -72,7 +73,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     {
         if (_rewardedId.Equals(placementId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
-            Debug.Log("Rewarding player");
+            int randomItemId = Random.Range(0, 3);
+            SpecialItemManager.GiveItem((SpecialItem) randomItemId);
         }
         
         LoadRewardedAd();
