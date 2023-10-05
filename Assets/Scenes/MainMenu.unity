@@ -208,7 +208,6 @@ GameObject:
   m_Component:
   - component: {fileID: 202278224}
   - component: {fileID: 202278223}
-  - component: {fileID: 202278225}
   m_Layer: 0
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -243,23 +242,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &202278225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202278222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3152218af27549ae97b0910cd89b95e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iosGameId: 5436089
-  iosRewardedId: Rewarded_iOS
-  androidGameId: 5436088
-  androidRewardedId: Rewarded_Android
-  adButton: {fileID: 400013459}
 --- !u!1 &238362865
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +389,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 202278225}
+      - m_Target: {fileID: 1944168507}
         m_TargetAssemblyTypeName: AdManager, Assembly-CSharp
         m_MethodName: PlayRewardedAd
         m_Mode: 1
@@ -2675,6 +2657,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832975041}
   m_CullTransparentMesh: 1
+--- !u!1 &1944168505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944168506}
+  - component: {fileID: 1944168507}
+  m_Layer: 0
+  m_Name: AdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944168506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944168505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1944168507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944168505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3152218af27549ae97b0910cd89b95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iosGameId: 5436089
+  iosRewardedId: Rewarded_iOS
+  androidGameId: 5436088
+  androidRewardedId: Rewarded_Android
+  adButton: {fileID: 400013459}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2684,3 +2715,4 @@ SceneRoots:
   - {fileID: 961454163}
   - {fileID: 1136532464}
   - {fileID: 202278224}
+  - {fileID: 1944168506}

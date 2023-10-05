@@ -21,7 +21,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            adButton.onClick.AddListener(Instance.PlayRewardedAd);
+            Destroy(gameObject);
             return;
         }
         
@@ -35,7 +36,6 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         GameId = AndroidGameId;
         RewardedId = AndroidRewardedId;
 #endif
-        
         
         adButton.interactable = false;
         Advertisement.Initialize(_gameId, false, this);
@@ -51,6 +51,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void PlayRewardedAd()
     {
+        adButton = GameObject.Find("Ad Button").GetComponent<Button>();
         adButton.interactable = false;
         Advertisement.Show(_rewardedId, this);
     }
@@ -77,18 +78,19 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) { }
 
-    public void OnUnityAdsShowStart(string placementId) { }
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        LoadRewardedAd();
+    }
 
     public void OnUnityAdsShowClick(string placementId) { }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        if (_rewardedId.Equals(placementId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
-        {
-            int randomItemId = Random.Range(0, 3);
-            SpecialItemManager.GiveItem((SpecialItem) randomItemId);
-        }
+        if (!_rewardedId.Equals(placementId) || !showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED)) 
+            return;
         
-        LoadRewardedAd();
+        int randomItemId = Random.Range(0, 3);
+        SpecialItemManager.GiveItem((SpecialItem) randomItemId);
     }
 }
