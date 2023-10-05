@@ -33,32 +33,27 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         if (!Advertisement.isInitialized)
             return;
         
-        Debug.Log("Loading Ad");
         Advertisement.Load(_rewardedId, this);
     }
 
     public void PlayRewardedAd()
     {
-        Debug.Log("Playing rewarded ad");
         adButton.interactable = false;
         Advertisement.Show(_rewardedId, this);
     }
 
     public void OnInitializationComplete()
     {
-        Debug.Log("Initialization completed");
         LoadRewardedAd();
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.Log("Initialization failed");
         Advertisement.Initialize(_gameId, false, this);
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        Debug.Log("Ad Loaded");
         adButton.interactable = true;
     }
 
