@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
+    public static AdManager Instance { get; private set; }
+    
     [SerializeField] private string iosGameId;
     [SerializeField] private string iosRewardedId;
     [SerializeField] private string androidGameId;
@@ -17,6 +19,15 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
 #if UNITY_IOS
         _gameId = iosGameId;
         _rewardedId = iosRewardedId;
@@ -24,6 +35,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         GameId = AndroidGameId;
         RewardedId = AndroidRewardedId;
 #endif
+        
         
         adButton.interactable = false;
         Advertisement.Initialize(_gameId, false, this);
