@@ -90,7 +90,6 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         if (!_rewardedId.Equals(placementId) || !showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED)) 
             return;
         
-        int randomItemId = Random.Range(0, 3);
-        SpecialItemManager.GiveItem((SpecialItem) randomItemId);
+        GameObject.Find("MainMenuManager").GetComponent<MainMenu>().ActivateRewardPanel();
     }
 }

@@ -43,7 +43,7 @@ public class SpecialItemManager : MonoBehaviour
         
         _itemCounts[(int)specialItem]--;
         UpdateInventoryDisplay();
-        SaveItemCounts(_itemCounts);
+        SaveItemCounts();
     }
 
     public void StopUsingItem(SpecialItem specialItem, bool decremented = false)
@@ -55,7 +55,7 @@ public class SpecialItemManager : MonoBehaviour
         
         _itemCounts[(int)specialItem]--;
         UpdateInventoryDisplay();
-        SaveItemCounts(_itemCounts);
+        SaveItemCounts();
     }
 
     public bool CanBeUsed(SpecialItem specialItem)
@@ -63,11 +63,11 @@ public class SpecialItemManager : MonoBehaviour
         return _itemCounts[(int)specialItem] > 0;
     }
 
-    public static void GiveItem(SpecialItem specialItem, int count = 1)
+    public void GiveItem(SpecialItem specialItem, int count = 1)
     {
-        List<int> itemCounts = LoadItemCounts();
-        itemCounts[(int)specialItem] += count;
-        SaveItemCounts(itemCounts);
+        _itemCounts[(int)specialItem] += count;
+        SaveItemCounts();
+        UpdateInventoryDisplay();
     }
 
     private void UpdateInventoryDisplay()
@@ -78,9 +78,9 @@ public class SpecialItemManager : MonoBehaviour
         }
     }
 
-    private static void SaveItemCounts(List<int> itemCounts)
+    private void SaveItemCounts()
     {
-        string json = JsonUtility.ToJson(new ItemCounts(itemCounts));
+        string json = JsonUtility.ToJson(new ItemCounts(_itemCounts));
         File.WriteAllText(Application.persistentDataPath + "/items.json", json);
     }
 
