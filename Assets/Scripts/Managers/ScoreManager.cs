@@ -80,7 +80,10 @@ public class ScoreManager : MonoBehaviour
                 int.Parse(scoreString.Substring(scoreString.IndexOf('*') + 1)));
         }
 
-        highScoreDict.Add(DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")), _score);
+        highScoreDict.Add(
+            DateTime.Now.Day < 10
+                ? "0" + DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr"))
+                : DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")), _score);
 
         int index = 0;
 
