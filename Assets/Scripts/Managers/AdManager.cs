@@ -33,8 +33,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         _gameId = iosGameId;
         _rewardedId = iosRewardedId;
 #else
-        GameId = AndroidGameId;
-        RewardedId = AndroidRewardedId;
+        _gameId = androidGameId;
+        _rewardedId = androidRewardedId;
 #endif
         
         adButton.interactable = false;
