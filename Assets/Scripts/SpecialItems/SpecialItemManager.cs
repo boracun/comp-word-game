@@ -86,6 +86,8 @@ public class SpecialItemManager : MonoBehaviour
 
     private static List<int> LoadItemCounts()
     {
+        if (!File.Exists(Application.persistentDataPath + "/items.json"))
+            return new List<int> { 0, 0, 0 };
         string json = File.ReadAllText(Application.persistentDataPath + "/items.json");
         return JsonUtility.FromJson<ItemCounts>(json).ItemCountList;
     }
