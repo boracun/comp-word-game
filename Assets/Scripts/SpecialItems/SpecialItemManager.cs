@@ -10,6 +10,8 @@ public class SpecialItemManager : MonoBehaviour
     public static SpecialItemManager Instance { get; private set; }
     public LetterData WildLetterData;
     
+    private static string _itemsPath;
+    
     private List<SpecialItem> _specialItemsInUse;
     private List<int> _itemCounts;
     [SerializeField] private List<TextMeshProUGUI> _itemCountDisplays;
@@ -23,6 +25,7 @@ public class SpecialItemManager : MonoBehaviour
         }
         
         Instance = this;
+        _itemsPath = Application.persistentDataPath + "/items.json";
         _specialItemsInUse = new List<SpecialItem>();
 
         _itemCounts = LoadItemCounts();
@@ -81,15 +84,28 @@ public class SpecialItemManager : MonoBehaviour
     private void SaveItemCounts()
     {
         string json = JsonUtility.ToJson(new ItemCounts(_itemCounts));
-        File.WriteAllText(Application.persistentDataPath + "/items.json", json);
+        File.WriteAllText(_itemsPath, EncryptDecrypt(json));
     }
 
     private static List<int> LoadItemCounts()
     {
-        if (!File.Exists(Application.persistentDataPath + "/items.json"))
+        if (!File.Exists(_itemsPath))
             return new List<int> { 0, 0, 0 };
-        string json = File.ReadAllText(Application.persistentDataPath + "/items.json");
-        return JsonUtility.FromJson<ItemCounts>(json).ItemCountList;
+        string json = File.ReadAllText(_itemsPath);
+        return JsonUtility.FromJson<ItemCounts>(EncryptDecrypt(json)).ItemCountList;
+    }
+
+    public static string EncryptDecrypt(string data)
+    {
+        string result = "";
+        string keyword = "784632894";
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            result += (char)(data[i] ^ keyword[i % keyword.Length]);
+        }
+        
+        return result;
     }
 }
 
