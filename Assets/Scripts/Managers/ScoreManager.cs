@@ -6,6 +6,7 @@ using System.Linq;
 using SpecialItems;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -64,25 +65,32 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        File.AppendAllLines(_scoresPath, new []{ DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")) + "***" + _score });
+        HighScore scoreObject = new HighScore(DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")), _score);
         
-        string[] highScoreStrings;
+        string json = JsonUtility.ToJson(scoreObject);
+        string encryptedJson = SpecialItemManager.EncryptDecrypt(json);
+        
+        File.AppendAllLines(_scoresPath, new []{ encryptedJson });      // Append encrypted line
+        
+        HighScoreContainer highScoreContainer;
         
         if (File.Exists(_highScoresPath))
-            highScoreStrings = File.ReadAllLines(_highScoresPath);
+        {
+            string decryptedContainer = SpecialItemManager.EncryptDecrypt(File.ReadAllText(_highScoresPath));   // Decrypt the container object
+            Debug.Log(decryptedContainer);
+            highScoreContainer = JsonUtility.FromJson<HighScoreContainer>(decryptedContainer);
+        }
         else
-            highScoreStrings = new string[] { };
+            highScoreContainer = new HighScoreContainer(Array.Empty<HighScore>());
 
-        if (highScoreStrings.Length >= 10 &&
-            int.Parse(highScoreStrings[9].Substring(highScoreStrings[9].IndexOf('*') + 1)) >= _score)
+        if (highScoreContainer.HighScores.Length >= 10 && highScoreContainer.HighScores[9].score >= _score)
             return;
 
         Dictionary<string, int> highScoreDict = new Dictionary<string, int>();
 
-        foreach (string scoreString in highScoreStrings)
+        foreach (HighScore highScore in highScoreContainer.HighScores)
         {
-            highScoreDict.Add(scoreString.Substring(0, scoreString.IndexOf('*')),
-                int.Parse(scoreString.Substring(scoreString.IndexOf('*') + 1)));
+            highScoreDict.Add(highScore.timeString, highScore.score);
         }
 
         highScoreDict.Add(
@@ -92,15 +100,42 @@ public class ScoreManager : MonoBehaviour
 
         int index = 0;
 
-        List<string> resultList = new List<string>();
+        List<HighScore> updatedHighScoreList = new List<HighScore>();
         foreach (var pair in highScoreDict.OrderByDescending(key => key.Value))
         {
-            resultList.Add(pair.Key + "*" + pair.Value);
+            HighScore highScore = new HighScore(pair.Key, pair.Value);
+            updatedHighScoreList.Add(highScore);
             index++;
             if (index == 10)
                 break;
         }
-        
-        File.WriteAllLines(_highScoresPath, resultList);
+
+        HighScoreContainer updatedContainer = new HighScoreContainer(updatedHighScoreList.ToArray());
+        string updatedJson = JsonUtility.ToJson(updatedContainer);
+        Debug.Log(updatedJson);
+        File.WriteAllText(_highScoresPath, SpecialItemManager.EncryptDecrypt(updatedJson));     // Encrypt the container object
+    }
+}
+
+public struct HighScoreContainer
+{
+    public HighScore[] HighScores;
+
+    public HighScoreContainer(HighScore[] highScores)
+    {
+        HighScores = highScores;
+    }
+}
+
+[Serializable]
+public struct HighScore
+{
+    public string timeString;
+    public int score;
+
+    public HighScore(string time, int score)
+    {
+        timeString = time;
+        this.score = score;
     }
 }
