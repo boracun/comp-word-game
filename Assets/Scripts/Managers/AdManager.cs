@@ -68,7 +68,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        if (!adButton.IsDestroyed())
+        if (adButton != null || !adButton.IsDestroyed())
             adButton.interactable = true;
     }
 
