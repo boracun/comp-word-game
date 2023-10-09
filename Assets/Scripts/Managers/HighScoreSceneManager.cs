@@ -8,22 +8,25 @@ public class HighScoreSceneManager : MonoBehaviour
 {
     [SerializeField] private GameObject highScoreBackgroundPrefab;
     [SerializeField] private GameObject fileNotFoundPrefab;
+    private string _highScoresPath;
 
     private void Awake()
     {
-        if (!File.Exists(Application.persistentDataPath + "/highScores.txt"))
+        _highScoresPath = Application.persistentDataPath + "/highScores.txt";
+        if (!File.Exists(_highScoresPath))
         {
             Instantiate(fileNotFoundPrefab, transform.position, Quaternion.identity, transform);
             return;
         }
-        
-        string[] highScoreStrings = File.ReadAllLines(Application.persistentDataPath + "/highScores.txt");
 
-        foreach (string scoreString in highScoreStrings)
+        string containerJson = SpecialItemManager.EncryptDecrypt(File.ReadAllText(_highScoresPath));
+        HighScoreContainer container = JsonUtility.FromJson<HighScoreContainer>(containerJson);
+
+        foreach (HighScore highScore in container.HighScores)
         {
             GameObject scoreGO = Instantiate(highScoreBackgroundPrefab, Vector3.zero, Quaternion.identity, transform);
-            int score = int.Parse(scoreString.Substring(scoreString.IndexOf('*') + 1));
-            string date = scoreString.Substring(0, 16);
+            int score = highScore.score;
+            string date = highScore.timeString.Substring(0, 16);
 
             scoreGO.GetComponentInChildren<TextMeshProUGUI>().text = score + " at " + date;
         }
