@@ -90,7 +90,7 @@ public class SpecialItemManager : MonoBehaviour
     private static List<int> LoadItemCounts()
     {
         if (!File.Exists(_itemsPath))
-            return new List<int> { 0, 0, 0 };
+            return new List<int> { 3, 3, 3 };
         string json = File.ReadAllText(_itemsPath);
         return JsonUtility.FromJson<ItemCounts>(EncryptDecrypt(json)).ItemCountList;
     }
