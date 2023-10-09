@@ -77,7 +77,6 @@ public class ScoreManager : MonoBehaviour
         if (File.Exists(_highScoresPath))
         {
             string decryptedContainer = SpecialItemManager.EncryptDecrypt(File.ReadAllText(_highScoresPath));   // Decrypt the container object
-            Debug.Log(decryptedContainer);
             highScoreContainer = JsonUtility.FromJson<HighScoreContainer>(decryptedContainer);
         }
         else
@@ -112,7 +111,6 @@ public class ScoreManager : MonoBehaviour
 
         HighScoreContainer updatedContainer = new HighScoreContainer(updatedHighScoreList.ToArray());
         string updatedJson = JsonUtility.ToJson(updatedContainer);
-        Debug.Log(updatedJson);
         File.WriteAllText(_highScoresPath, SpecialItemManager.EncryptDecrypt(updatedJson));     // Encrypt the container object
     }
 }
