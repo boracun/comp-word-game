@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour
  
     private int _score;
     private List<int> _highScoreList;
+    private string _scoresPath;
+    private string _highScoresPath;
 
     private void Awake()
     {
@@ -25,6 +27,9 @@ public class ScoreManager : MonoBehaviour
             Destroy(this);
         else
             Instance = this;
+
+        _scoresPath = Application.persistentDataPath + "/scores.txt";
+        _highScoresPath = Application.persistentDataPath + "/highScores.txt";
     }
 
     public void IncreaseScore(int scoreToAdd, int wordLength, Vector3 pointIncreasePosition)
@@ -59,12 +64,12 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        File.AppendAllLines(Application.persistentDataPath + "/scores.txt", new []{ DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")) + "***" + _score });
+        File.AppendAllLines(_scoresPath, new []{ DateTime.Now.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("tr")) + "***" + _score });
         
         string[] highScoreStrings;
         
-        if (File.Exists(Application.persistentDataPath + "/highScores.txt"))
-            highScoreStrings = File.ReadAllLines(Application.persistentDataPath + "/highScores.txt");
+        if (File.Exists(_highScoresPath))
+            highScoreStrings = File.ReadAllLines(_highScoresPath);
         else
             highScoreStrings = new string[] { };
 
@@ -96,6 +101,6 @@ public class ScoreManager : MonoBehaviour
                 break;
         }
         
-        File.WriteAllLines(Application.persistentDataPath + "/highScores.txt", resultList);
+        File.WriteAllLines(_highScoresPath, resultList);
     }
 }
