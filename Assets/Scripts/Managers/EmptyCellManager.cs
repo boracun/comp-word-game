@@ -38,20 +38,22 @@ public class EmptyCellManager : MonoBehaviour
 
     public void FillAllEmptyCells()
     {
+        bool useVowel = true;
         while (EmptyCellIdList.Count > 0)   
         {
-            FillEmptyCell();
+            FillEmptyCell(useVowel);
+            useVowel = false;
         }
     }
 
-    public void FillEmptyCell()
+    public void FillEmptyCell(bool useVowel)
     {
         if (EmptyCellIdList.Count == 0)
             return;
         
         Vector3 spawnPosition = new Vector3(Random.Range(-MAX_X, MAX_X), TOP_Y);
         GameObject letterGO = Instantiate(letterPrefab, spawnPosition, Quaternion.identity, transform.parent);
-        letterGO.GetComponent<Letter>().LetterData = GameManager.GetRandomLetterData();
+        letterGO.GetComponent<Letter>().LetterData = GameManager.GetRandomLetterData(useVowel);
         
         Transform emptyCellTransform = GetRandomEmptyCellTransform();
         EmptyCellIdList.Remove(EmptyCellIdList[0]);

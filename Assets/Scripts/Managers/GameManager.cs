@@ -46,9 +46,9 @@ public class GameManager : MonoBehaviour
         TimeManager.Instance.StartTimer();
     }
 
-    public static LetterData GetRandomLetterData()
+    public static LetterData GetRandomLetterData(bool isVowel)
     {
-        int randomIndex = Random.Range(0, StaticLetterDataList.Count);
+        var randomIndex = Random.Range(0, isVowel ? 5 : StaticLetterDataList.Count);
         return StaticLetterDataList[randomIndex];
     }
 }
