@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class WordSubmission : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class WordSubmission : MonoBehaviour
     {
         int wordPoints = 0;
         string wordString = "";
-        
+
         foreach (Transform cellTransform in transform)
         {
             if (cellTransform.childCount == 0)
@@ -32,9 +34,9 @@ public class WordSubmission : MonoBehaviour
             wordString += letterData.letter;
         }
 
-        if (wordString.Length < 3 || !IsValid(wordString.ToLower()))
+        if (wordString.Length < 3 || !IsValid(wordString.ToLower(new CultureInfo("en-US"))))
             return;
-        
+
         ScoreManager.Instance.IncreaseScore(wordPoints, wordString.Length, transform.position);
         SpaceManager.Instance.ResetWordContainer();
         EmptyCellManager.Instance.FillAllEmptyCells();
